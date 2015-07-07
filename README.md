@@ -61,7 +61,7 @@ Contents of `foo.sh`:
 echo "foo"
 ```
 
-Running `git commit` will have this result
+Running `git commit` will have this result:
 
 ```
 $ git commit
@@ -70,4 +70,7 @@ foo
 Aborting commit due to empty commit message.
 ```
 
+More examples can be found in the [`examples/` directory][examples-dir]
+
 [githooks-docs]: http://git-scm.com/docs/githooks
+[examples-dir]: https://github.com/joshfriend/hooker/tree/master/examples
