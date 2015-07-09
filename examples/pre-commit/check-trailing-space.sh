@@ -6,6 +6,8 @@ NC='\033[0m' # No Color
 # Only scan changed/added files
 staged=$(git diff --staged --name-status | grep '[MA]' | awk '{ print $2 }')
 
+ignorepattern="(.*\.json)"
+
 text_files=()
 for file in $staged; do
     # Check if file is text
@@ -13,6 +15,11 @@ for file in $staged; do
     if ! [[ "$ftype" =~ "text" ]]; then
         continue
     fi
+
+    if [[ "$file" =~ $ignorepattern ]]; then
+        continue
+    fi
+
     text_files+=($file)
 done
 
