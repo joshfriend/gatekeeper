@@ -1,6 +1,7 @@
 #!/bin/bash
 
-this=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)/`basename "${BASH_SOURCE[0]}"`
+dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+this=$dir/`basename "${BASH_SOURCE[0]}"`
 
 # http://git-scm.com/docs/githooks
 hook_names="
@@ -21,7 +22,6 @@ if [ "$1" = "--install" ]; then
         ln -sf $this .git/hooks/$hook
     done
 else
-    dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
     hook_name=$(basename "$this")
     hook_dir="$dir/../../.hooks/$hook_name"
     hook_files=$(find $hook_dir -perm +111 -type f 2> /dev/null)
