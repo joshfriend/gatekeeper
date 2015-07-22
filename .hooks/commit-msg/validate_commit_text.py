@@ -4,6 +4,7 @@
 #  http://chris.beams.io/posts/git-commit/
 
 import re
+import os
 import sys
 import string
 import textwrap
@@ -109,6 +110,11 @@ def test_body_width_and_wrap_to_limit(msg):
 
 
 if __name__ == '__main__':
+    # Don't check merge message
+    merge_file = os.path.join(os.path.dirname(sys.argv[1]), 'MERGE_MSG')
+    if os.path.exists(merge_file):
+        sys.exit(0)
+
     commit_msg = open(sys.argv[1]).read()
     if not commit_msg or commit_msg.startswith('\n'):
         # Git will auto abort if message is empty
