@@ -8,8 +8,7 @@ your git repositories.
 ## Install
 
 ```
-$ curl https://raw.githubusercontent.com/joshfriend/hooker/master/hooker.sh
-$ ./hooker.sh --install
+$ bash <(curl -s https://raw.githubusercontent.com/joshfriend/hooker/master/hooker.sh) --install
 Hooking you up...
 ```
 
