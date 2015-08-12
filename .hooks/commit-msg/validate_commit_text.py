@@ -12,26 +12,48 @@ from functools import wraps
 
 
 class TermColors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+    BLINK = '\033[5m'
+
+    FG_BLACK = '\033[30m'
+    FG_RED = '\033[31m'
+    FG_GREEN = '\033[32m'
+    FG_YELLOW = '\033[33m'
+    FG_BLUE = '\033[34m'
+    FG_MAGENTA = '\033[35m'
+    FG_CYAN = '\033[36m'
+    FG_WHITE = '\033[37m'
+
+    BG_BLACK = '\033[40m'
+    BG_RED = '\033[41m'
+    BG_GREEN = '\033[42m'
+    BG_YELLOW = '\033[43m'
+    BG_BLUE = '\033[44m'
+    BG_MAGENTA = '\033[45m'
+    BG_CYAN = '\033[46m'
+    BG_WHITE = '\033[47m'
 
 
 MAX_SUBJECT_LENGTH = 50
 MAX_BODY_WIDTH = 72
 
 
+def _log(text, *options):
+    print(''.join(options) + text + TermColors.ENDC)
+
+
 def fail(msg):
-    print(TermColors.FAIL + msg + TermColors.ENDC)
+    _log(msg, TermColors.BOLD, TermColors.FG_RED)
 
 
 def warn(msg):
-    print(TermColors.WARNING + msg + TermColors.ENDC)
+    _log(msg, TermColors.FG_YELLOW)
+
+
+def info(msg):
+    _log(msg, TermColors.FG_WHITE)
 
 
 def run_order(order):
@@ -100,7 +122,7 @@ def test_body_width_and_wrap_to_limit(msg):
 
     too_long = map(lambda x: len(x) > MAX_BODY_WIDTH, lines)
     if any(too_long):
-        warn(('Some lines are longer than %i characters and will be wrapped '
+        info(('Some lines are longer than %i characters and will be wrapped '
               'automatically') % MAX_BODY_WIDTH)
 
     for i, line in enumerate(lines):
