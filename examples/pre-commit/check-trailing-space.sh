@@ -26,7 +26,7 @@ done
 have_trailing_space=$(egrep -l " +$" $text_files)
 
 if [ "$have_trailing_space" ]; then
-    printf "${RED}The following staged files have trailing whitespace:${NC}\n"
+    log_error "The following staged files have trailing whitespace:"
     echo $have_trailing_space
     exit 1
 fi

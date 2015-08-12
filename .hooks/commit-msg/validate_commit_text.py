@@ -10,6 +10,11 @@ import string
 import textwrap
 from functools import wraps
 
+if os.getenv('TERM'):
+    colors = True
+else:
+    colors = False
+
 
 class TermColors:
     ENDC = '\033[0m'
@@ -41,7 +46,10 @@ MAX_BODY_WIDTH = 72
 
 
 def _log(text, *options):
-    print(''.join(options) + text + TermColors.ENDC)
+    if colors:
+        print(''.join(options) + text + TermColors.ENDC)
+    else:
+        print(text)
 
 
 def fail(msg):

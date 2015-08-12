@@ -28,7 +28,7 @@ for file in $staged; do
 done
 
 if [ "$no_newline" ]; then
-    printf "${RED}The following staged files have no trailing newline:${NC}\n"
+    log_error "The following staged files have no trailing newline:"
     echo $no_newline
     exit 1
 fi
