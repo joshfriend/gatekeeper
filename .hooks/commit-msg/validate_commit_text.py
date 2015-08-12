@@ -114,6 +114,15 @@ def test_subject_does_not_contain_issue_key(msg):
     return msg
 
 
+@run_order(1)
+def test_subject_does_not_contain_issue_key(msg):
+    subject = msg.split('\n')[0].strip()
+    first_word = subject.split()[0]
+    if first_word.endswith('s') and not first_word.endswith('ss'):
+        warn('Subject should use imperative mood')
+    return msg
+
+
 @run_order(2)
 def test_body_width_and_wrap_to_limit(msg):
     lines = map(string.strip, msg.split('\n'))
