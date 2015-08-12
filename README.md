@@ -13,6 +13,8 @@ $ ./hooker.sh --install
 Hooking you up...
 ```
 
+**Note:** This process will overwrite any existing git hooks!
+
 ## How It Works
 
 Hooker installs itself with a symlink as the following git hooks (see
