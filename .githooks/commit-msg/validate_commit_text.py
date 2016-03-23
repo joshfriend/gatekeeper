@@ -3,12 +3,22 @@
 # A commit hook to validate commit messages based on the rules in this article:
 #  http://chris.beams.io/posts/git-commit/
 
-import re
 import os
+import re
 import sys
-import string
 import textwrap
 from functools import wraps
+
+PY2 = sys.version_info[0] == 2
+
+if PY2:
+    _filter = filter
+    text = unicode
+    binary_type = str
+else:
+    _filter = lambda x, y: list(filter(x, y))
+    text = str
+    binary_type = bytes
 
 if os.getenv('TERM'):
     colors = True
@@ -106,9 +116,9 @@ def test_subject_doesnt_end_with_period(msg):
 
 @run_order(1)
 def test_blank_line_after_subject(msg):
-    lines = map(string.strip, msg.split('\n'))
+    lines = map(text.strip, msg.split('\n'))
     # Remove ignored lines from message
-    lines = filter(lambda x: not x.startswith('#'), lines)
+    lines = _filter(lambda x: not x.startswith('#'), lines)
     if len(lines) > 1 and lines[1]:
         fail('Separate subject from body with a blank line')
         return None
@@ -125,20 +135,11 @@ def test_subject_does_not_contain_issue_key(msg):
     return msg
 
 
-@run_order(1)
-def test_subject_does_not_contain_issue_key(msg):
-    subject = msg.split('\n')[0].strip()
-    first_word = subject.split()[0]
-    if first_word.endswith('s') and not first_word.endswith('ss'):
-        warn('Subject should use imperative mood')
-    return msg
-
-
 @run_order(2)
 def test_body_width_and_wrap_to_limit(msg):
-    lines = map(string.strip, msg.split('\n'))
+    lines = map(text.strip, msg.split('\n'))
     # Remove ignored lines from message
-    lines = filter(lambda x: not x.startswith('#'), lines)
+    lines = _filter(lambda x: not x.startswith('#'), lines)
 
     too_long = map(lambda x: len(x) > MAX_BODY_WIDTH, lines)
     if any(too_long):
@@ -158,6 +159,8 @@ if __name__ == '__main__':
         sys.exit(0)
 
     commit_msg = open(sys.argv[1]).read()
+    if isinstance(commit_msg, binary_type):
+        commit_msg = commit_msg.decode('utf-8')
     if not commit_msg or commit_msg.startswith('\n'):
         # Git will auto abort if message is empty
         sys.exit(0)
