@@ -72,6 +72,8 @@ foo
 Aborting commit due to empty commit message.
 ```
 
+More examples can be found in the [`examples/` directory][examples-dir]
+
 ## Skipping Hooks
 
 If you would like to bypass your hooks temporarily, just pass an additional
@@ -84,8 +86,6 @@ $ man githooks
 
 The `--no-verify` flag is all-or-nothing. You cannot skip individual hooks
 selectively.
-
-More examples can be found in the [`examples/` directory][examples-dir]
 
 [githooks-docs]: http://git-scm.com/docs/githooks
 [examples-dir]: https://github.com/joshfriend/hooker/tree/master/examples
