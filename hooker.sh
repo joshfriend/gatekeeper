@@ -16,38 +16,39 @@ prepare-commit-msg \
 update             \
 "
 
-RED='\033[0;31m'
-YELLOW='\033[0;33m'
-WHITE='\033[0;37m'
-BOLD='\033[0;1m'
-UNDERLINE='\033[0;4m'
-BLINK='\033[0;5m'
-NC='\033[0m' # No Color
+export _HOOKER_LOG_RED='\033[0;31m'
+export _HOOKER_LOG_YELLOW='\033[0;33m'
+export _HOOKER_LOG_WHITE='\033[0;37m'
+export _HOOKER_LOG_BOLD='\033[0;1m'
+export _HOOKER_LOG_UNDERLINE='\033[0;4m'
+export _HOOKER_LOG_BLINK='\033[0;5m'
+export _HOOKER_LOG_NC='\033[0m' # No Color
 
 # Logging helpers
 _log_message() {
     text=$1
+    color=$2
     shift
     if [ -z "$TERM" ]; then
         printf "$text\n"
     else
-        printf "$@$text${NC}\n"
+        printf "$color$text${_HOOKER_LOG_NC}\n"
     fi
 }
 export -f _log_message
 
 log_info() {
-    _log_message "$1" ${WHITE}
+    _log_message "$1" ${_HOOKER_LOG_WHITE}
 }
 export -f log_info
 
 log_warn() {
-    _log_message "$1" ${YELLOW}
+    _log_message "$1" ${_HOOKER_LOG_YELLOW}
 }
 export -f log_warn
 
 log_error() {
-    _log_message "$1" ${RED}
+    _log_message "$1" ${_HOOKER_LOG_RED}
 }
 export -f log_error
 
