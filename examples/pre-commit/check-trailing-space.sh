@@ -1,8 +1,5 @@
 #!/bin/bash
 
-RED='\033[0;31m'
-NC='\033[0m' # No Color
-
 # Only scan changed/added files
 staged=$(git diff --staged --name-status | grep '[MA]' | awk '{ print $2 }')
 

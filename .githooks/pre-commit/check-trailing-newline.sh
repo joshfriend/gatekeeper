@@ -1,8 +1,5 @@
 #!/bin/bash
 
-RED='\033[0;31m'
-NC='\033[0m' # No Color
-
 # Only scan changed/added files
 staged=$(git diff --staged --name-status | grep '[MA]' | awk '{ print $2 }')
 
@@ -28,7 +25,7 @@ for file in $staged; do
 done
 
 if [ "$no_newline" ]; then
-    printf "${RED}The following staged files have no trailing newline:${NC}\n"
+    log_error "The following staged files have no trailing newline:"
     echo $no_newline
     exit 1
 fi
