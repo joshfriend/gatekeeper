@@ -59,7 +59,7 @@ if [ "$1" = "--install" ]; then
     done
 else
     hook_name=$(basename "$this")
-    hook_dir="$dir/../../.hooks/$hook_name"
+    hook_dir="$dir/../../.githooks/$hook_name"
     hook_files=$(find $hook_dir -perm +111 -type f 2> /dev/null)
 
     for hook in $hook_files; do

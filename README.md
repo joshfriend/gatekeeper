@@ -31,19 +31,19 @@ what arguments they take):
 * `prepare-commit-msg`
 * `update`
 
-When Git runs a hook, Hooker will look in the `.hooks` directory in your repo
-root for a folder with the name of the hook that Git is running. All executable
-scripts in that folder will be executed in alphabetic order. If one of the
-hooks returns a non-zero exit code, any remaining hooks are skipped and Hooker
-will indicate hook failure to Git.
+When Git runs a hook, Hooker will look in the `.githooks` directory in your
+repo root for a folder with the name of the hook that Git is running. All
+executable scripts in that folder will be executed in alphabetic order. If one
+of the hooks returns a non-zero exit code, any remaining hooks are skipped and
+Hooker will indicate hook failure to Git.
 
 ## Example
 
-Given a `.hooks` directory containing the following:
+Given a `.githooks` directory containing the following:
 
 ```
 repo/
-    .hooks/
+    .githooks/
         pre-commit/
             bar.py
             foo.sh
