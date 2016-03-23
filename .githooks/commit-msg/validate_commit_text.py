@@ -77,6 +77,9 @@ def run_order(order):
 @run_order(1)
 def test_subject_line_is_capitalized(msg):
     subject = msg.split('\n')[0].strip()
+    if subject.startswith('fixup!'):
+        # ignore rule for `commit --fixup`
+        return msg
     if not subject[0].isupper():
         fail('Subject line should be capitalized')
         return None
