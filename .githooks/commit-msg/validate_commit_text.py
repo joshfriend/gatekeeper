@@ -181,6 +181,8 @@ if __name__ == '__main__':
             commit_msg = new_msg
 
     with open(sys.argv[1], 'w') as f:
+        if PY2:
+            commit_msg = commit_msg.encode('utf-8')
         f.write(commit_msg)
 
     sys.exit(int(failure))
